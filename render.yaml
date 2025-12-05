@@ -3,8 +3,10 @@ services:
   - type: web
     name: postiz-app
     env: docker
-    plan: starter  # Web Service must be 'starter' ($7) to support the Upload Disk.
-    region: virginia # Changed to match your other DB
+    plan: starter
+    region: virginia
+    # The Fix: Explicitly force binding to 0.0.0.0
+    dockerCommand: sh -c "export HOSTNAME=0.0.0.0 && export PORT=4200 && npm run pm2-run"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -21,6 +23,10 @@ services:
         sync: false
       - key: NEXT_PUBLIC_BACKEND_URL
         sync: false
+      - key: HOSTNAME
+        value: 0.0.0.0
+      - key: PORT
+        value: 4200
     disk:
       name: postiz-uploads
       mountPath: /uploads
@@ -31,11 +37,10 @@ services:
     name: postiz-redis
     plan: free
     region: virginia
-    ipAllowList: [] # This line fixes the "must specify IP allow list" error.
+    ipAllowList: []
 
 # 3. The Database (Postgres)
 databases:
   - name: postiz-db
-    plan: free # I set this to FREE ($0) to get it building.
-    # If you want it permanent like your other DB, change 'free' to 'basic' ($7/mo).
+    plan: free
     region: virginia
