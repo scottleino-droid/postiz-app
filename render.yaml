@@ -1,11 +1,10 @@
 services:
+  # 1. The Main App (Postiz)
   - type: web
     name: postiz-app
     env: docker
-    plan: starter
-    region: ohio
-    numInstances: 1
-    repo: https://github.com/gitroomhq/postiz-app
+    plan: starter  # Web Service must be 'starter' ($7) to support the Upload Disk.
+    region: virginia # Changed to match your other DB
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -27,13 +26,16 @@ services:
       mountPath: /uploads
       sizeGB: 1
 
+  # 2. The Cache (Redis)
   - type: redis
     name: postiz-redis
-    plan: starter
-    region: ohio
-    ipAllowList: [] 
+    plan: free
+    region: virginia
+    ipAllowList: [] # This line fixes the "must specify IP allow list" error.
 
+# 3. The Database (Postgres)
 databases:
   - name: postiz-db
-    plan: starter
-    region: ohio
+    plan: free # I set this to FREE ($0) to get it building.
+    # If you want it permanent like your other DB, change 'free' to 'basic' ($7/mo).
+    region: virginia
