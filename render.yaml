@@ -1,5 +1,4 @@
 services:
-  # 1. The Main App (Postiz)
   - type: web
     name: postiz-app
     env: docker
@@ -32,14 +31,12 @@ services:
       mountPath: /uploads
       sizeGB: 1
 
-  # 2. The Cache (Redis)
   - type: redis
     name: postiz-redis
     plan: free
     region: virginia
     ipAllowList: []
 
-# 3. The Database (Postgres)
 databases:
   - name: postiz-db
     plan: free
