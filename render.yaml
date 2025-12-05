@@ -5,8 +5,8 @@ services:
     env: docker
     plan: starter
     region: virginia
-    # The Fix: Use full path '/usr/local/bin/pnpm' and force IP binding
-    dockerCommand: sh -c "cd /app && export HOSTNAME=0.0.0.0 && export HOST=0.0.0.0 && export PORT=4200 && /usr/local/bin/pnpm run pm2-run"
+    # The Fix: Use Port 5000 (The Official Public Entry Point)
+    dockerCommand: sh -c "cd /app && export HOSTNAME=0.0.0.0 && export HOST=0.0.0.0 && export PORT=5000 && /usr/local/bin/pnpm run pm2-run"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -28,7 +28,7 @@ services:
       - key: HOST
         value: 0.0.0.0
       - key: PORT
-        value: 4200
+        value: 5000 # Changed to 5000
     disk:
       name: postiz-uploads
       mountPath: /uploads
