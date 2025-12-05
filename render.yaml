@@ -27,13 +27,12 @@ services:
       mountPath: /uploads
       sizeGB: 1
 
-databases:
-  - name: postiz-db
+  - type: redis
+    name: postiz-redis
     plan: starter
     region: ohio
 
-services:
-  - type: redis
-    name: postiz-redis
+databases:
+  - name: postiz-db
     plan: starter
     region: ohio
