@@ -5,8 +5,8 @@ services:
     env: docker
     plan: starter
     region: virginia
-    # The Fix: Explicitly force binding to 0.0.0.0
-    dockerCommand: sh -c "export HOSTNAME=0.0.0.0 && export PORT=4200 && npm run pm2-run"
+    # The Fix: Use 'pnpm' instead of 'npm' (and force 0.0.0.0 binding)
+    dockerCommand: sh -c "export HOSTNAME=0.0.0.0 && export HOST=0.0.0.0 && export PORT=4200 && pnpm run pm2-run"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -24,6 +24,8 @@ services:
       - key: NEXT_PUBLIC_BACKEND_URL
         sync: false
       - key: HOSTNAME
+        value: 0.0.0.0
+      - key: HOST
         value: 0.0.0.0
       - key: PORT
         value: 4200
