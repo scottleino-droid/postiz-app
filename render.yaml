@@ -31,6 +31,7 @@ services:
     name: postiz-redis
     plan: starter
     region: ohio
+    ipAllowList: [] 
 
 databases:
   - name: postiz-db
