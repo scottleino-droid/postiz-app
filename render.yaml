@@ -5,8 +5,8 @@ services:
     env: docker
     plan: starter
     region: virginia
-    # The Fix: Use 'pnpm' instead of 'npm' (and force 0.0.0.0 binding)
-    dockerCommand: sh -c "export HOSTNAME=0.0.0.0 && export HOST=0.0.0.0 && export PORT=4200 && pnpm run pm2-run"
+    # The Fix: Use full path '/usr/local/bin/pnpm' and force IP binding
+    dockerCommand: sh -c "cd /app && export HOSTNAME=0.0.0.0 && export HOST=0.0.0.0 && export PORT=4200 && /usr/local/bin/pnpm run pm2-run"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
