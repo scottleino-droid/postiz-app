@@ -2,7 +2,7 @@ services:
   - type: web
     name: postiz-app
     env: docker
-    plan: starter
+    plan: standard
     region: virginia
     envVars:
       - key: DATABASE_URL
@@ -20,12 +20,6 @@ services:
         sync: false
       - key: NEXT_PUBLIC_BACKEND_URL
         sync: false
-      - key: HOSTNAME
-        value: 0.0.0.0
-      - key: HOST
-        value: 0.0.0.0
-      - key: PORT
-        value: 4200
     disk:
       name: postiz-uploads
       mountPath: /uploads
