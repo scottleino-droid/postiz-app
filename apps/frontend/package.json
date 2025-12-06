@@ -9,7 +9,6 @@
     "build:sentry": "dotenv -e ../../.env -- next build",
     "start": "next start -p $PORT --hostname 0.0.0.0"
 },
-  },
   "keywords": [],
   "author": "",
   "license": "ISC"
